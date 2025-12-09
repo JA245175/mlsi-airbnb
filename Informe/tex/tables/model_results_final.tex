@@ -1,0 +1,19 @@
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Modelo & rmse & MSE & MAE & R2 \\
+\midrule
+Dummy & 0.6834 & 0.4670 & 0.5455 & -0.0001 \\
+LinearRegression & 0.5441 & 0.2960 & 0.4205 & 0.3660 \\
+DecisionTree & 0.7303 & 0.5334 & 0.5482 & -0.1422 \\
+RandomForest & 0.5175 & 0.2678 & 0.3974 & 0.4265 \\
+GradientBoosting & 0.5210 & 0.2715 & 0.4070 & 0.4186 \\
+NeuralNetwork & 0.5390 & 0.2905 & 0.4203 & 0.3778 \\
+\bottomrule
+\end{tabular}
+
+\caption{Resultados del primer barrido de modelos sobre la partición de validación (70/30).}
+\label{tab:model-results-first-barrido}
+\end{table}

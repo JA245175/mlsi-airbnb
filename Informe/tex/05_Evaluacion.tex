@@ -1,0 +1,58 @@
+\newpage
+
+\section{Evaluación y selección de modelos}
+
+La evaluación siguió dos etapas:
+
+\begin{enumerate}
+    \item Validación inicial con hold-out 70/30 para iterar rápidamente sobre modelos y preseleccionar candidatos.
+    \item Validación cruzada con \texttt{GridSearchCV} (5 pliegues) para seleccionar hiperparámetros y evaluar la robustez de los modelos preseleccionados. 
+\end{enumerate}
+
+Además, todas las métricas se calcularon sobre el precio transformado con \texttt{log1p} para mantener consistencia con el entrenamiento.
+
+\subsection{Estrategia y métricas}
+
+Se utilizó \texttt{train\_test\_split} con \texttt{random\_state=42} y, para la búsqueda de hiperparámetros, \texttt{GridSearchCV} con \texttt{KFold} de 5 pliegues y \texttt{n\_jobs=-1}. La métrica principal fue RMSE; también se monitorizaron MSE, MAE y R\textsuperscript{2}.
+
+\subsection{Hiperparámetros óptimos y desempeño en la partición de validación}
+
+\subsubsection{Laso}
+
+\input{./tex/tables/Lasso_gridsearch_results.tex}
+
+\subsubsection{Ridge}
+
+\input{./tex/tables/Ridge_gridsearch_results.tex}
+
+\subsubsection{Árbol de Decisión}
+
+\input{./tex/tables/DecisionTreeRegressor_gridsearch_results.tex}
+
+\subsubsection{Random Forest}
+
+\input{./tex/tables/RandomForestRegressor_gridsearch_results.tex}
+
+\subsubsection{Gradient Boosting}
+
+\input{./tex/tables/GradientBoostingRegressor_gridsearch_results.tex}
+
+
+\subsubsection{Red Neuronal (MLP)}
+
+\input{./tex/tables/NeuralNetwork_gridsearch_results.tex}
+
+
+\subsection{Resultados Finales}
+
+A continuación se presentan los mejores hiperparámetros encontrados para cada modelo junto con sus métricas en la partición de validación 70/30:
+
+\input{./tex/tables/cv_all_models_results.tex}
+
+\subsubsection{Síntesis de resultados}
+\begin{itemize}
+    \item \textbf{Hold-out 70/30} (Tabla \ref{tab:model-results-first-barrido}): Random Forest (RMSE 0.5175, MAE 0.3974, R\textsuperscript{2} 0.4265) y Gradient Boosting (0.5210, 0.4070, 0.4186) lideran; la red neuronal queda cerca (RMSE 0.5390). Lasso y Ridge rondan RMSE 0.54 con R\textsuperscript{2} $\approx$ 0.37; el árbol simple se degrada (RMSE 0.73, R\textsuperscript{2} negativo).
+    \item \textbf{Validación cruzada (5 pliegues)} (Tabla \ref{tab:cv-all-models}): el ranking se mantiene con baja varianza; Gradient Boosting logra RMSE \(0.5167 \pm 0.0063\), Random Forest \(0.5171 \pm 0.0075\); el MLP queda en $\sim$0.534 y Lasso/Ridge en $\sim$0.542; el Dummy queda muy atrás.
+    \item \textbf{Benchmark de hiperparámetros}: Lasso y Ridge prefieren \texttt{alpha=0.001} (Tablas \ref{tab:lasso-gridsearch} y \ref{tab:ridge-gridsearch}); el Árbol de Decisión rinde mejor con \texttt{max\_depth=5} y \texttt{min\_samples\_leaf=4} (Tabla \ref{tab:decisiontreeregressor-gridsearch}); Random Forest mejora con \texttt{n\_estimators=200}, \texttt{max\_depth=10} y hojas pequeñas (Tabla \ref{tab:randomforestregressor-gridsearch}). Las ganancias entre configuraciones fuertes y débiles son moderadas (~0.02--0.03 RMSE) pero consistentes.
+    \item \textbf{Conclusión práctica}: Random Forest y Gradient Boosting son los candidatos finales; los lineales quedan como baselines fuertes y el MLP es competitivo pero ligeramente detrás. Las predicciones finales se revirtieron con \texttt{np.expm1} antes de generar los archivos de envío en \texttt{pred/}.
+\end{itemize}

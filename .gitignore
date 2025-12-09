@@ -1,0 +1,21 @@
+# Entorno virtual
+.venv
+
+# Archivos de Jupyter Notebook
+.ipynb_checkpoints
+
+# Archivos de configuración de VSCode
+.vscode/
+
+# Archivos generados por LaTeX
+Informe/.build/**
+Informe/svg-inkscape/**
+Informe/*.aux
+Informe/*.bbl
+Informe/*.blg
+Informe/*.log
+Informe/*.out
+Informe/*.toc
+Informe/*.fls
+Informe/*.fdb_latexmk
+Informe/*.synctex.gz

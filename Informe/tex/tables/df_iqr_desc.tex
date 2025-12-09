@@ -1,0 +1,32 @@
+
+\begin{table}[H]
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \begin{scriptsize}
+    \begin{adjustbox}{width=\textwidth}
+    \begin{tabular}{lrrrrrrr}
+        \toprule
+        & \texttt{price} & \texttt{minimum\_\allowbreak nights} & \texttt{number\_\allowbreak of\_\allowbreak reviews} & \texttt{reviews\_\allowbreak per\_\allowbreak month} & \texttt{calculated\_\allowbreak host\_\allowbreak listings\_\allowbreak count} & \texttt{availability\_\allowbreak 365} & \texttt{days\_\allowbreak since\_\allowbreak last\_\allowbreak review} \\
+        \midrule
+        count & 16013 & 16013 & 16013 & 16013 & 16013 & 16013 & 16013 \\
+        mean & 7.5653 & 3.2317 & 10.4636 & 0.8015 & 2.8815 & 202.4305 & 5449 \\
+        std & 0.6831 & 2.2965 & 13.604 & 0.9998 & 2.7209 & 134.19 & 0 \\
+        min & 4.7958 & 1 & 0 & 0 & 1 & 0 & 5449 \\
+        0\% & 4.7958 & 1 & 0 & 0 & 1 & 0 & 5449 \\
+        15\% & 6.8002 & 1 & 0 & 0 & 1 & 36 & 5449 \\
+        25\% & 7.1365 & 1 & 0 & 0 & 1 & 83 & 5449 \\
+        50\% & 7.6178 & 3 & 4 & 0.33 & 1 & 180 & 5449 \\
+        75\% & 8.0034 & 4 & 16 & 1.25 & 4 & 344 & 5449 \\
+        90\% & 8.5337 & 7 & 40 & 2.68 & 8.5 & 364 & 5449 \\
+        95\% & 8.6291 & 8.5 & 40 & 3.125 & 8.5 & 365 & 5449 \\
+        99\% & 8.6291 & 8.5 & 40 & 3.125 & 8.5 & 365 & 5449 \\
+        max & 8.6291 & 8.5 & 40 & 3.125 & 8.5 & 365 & 5449 \\
+        variance & 0.4666 & 5.2741 & 185.0688 & 0.9997 & 7.4033 & 18006.951 & 0 \\
+        
+        \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+    \end{scriptsize}
+    \caption{ Estadísticos descriptivos de las variables numéricas tras el tratamiento de outliers con IQR (además de aplicar \lstinline[style=python]{np.expm1} a \texttt{price}). }
+    \label{tab:df-iqr-desc-log}
+\end{table}

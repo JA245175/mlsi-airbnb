@@ -1,0 +1,29 @@
+\newpage
+
+\section{Modelos de Regresión}
+
+Todos los modelos se entrenaron mediante un \texttt{Pipeline} que combina el preprocesamiento (\texttt{StandardScaler} para numéricas y \texttt{OneHotEncoder} para categóricas) con el estimador correspondiente. La validación inicial se realizó con un hold-out 70/30 y semilla \texttt{random\_state=42}.
+
+\lstinputlisting[language=Python, caption={Modelos de regresión.}]{./code/regresionModel.py}
+
+
+\subsection{Modelos implementados}
+Se implementaron y evaluaron los siguientes modelos de regresión:
+
+\begin{itemize}
+    \item \textbf{Dummy Regressor}: Utilizado como línea base (\textit{baseline}), prediciendo siempre la media del conjunto de entrenamiento.
+    \item \textbf{Regresión Lineal}: Modelo base sin regularización.
+    \item \textbf{Regresión Lasso (L1)}: Regresión lineal con regularización L1 para selección de características.
+    \item \textbf{Regresión Ridge (L2)}: Regresión lineal con regularización L2 para manejar multicolinealidad.
+    \item \textbf{Árbol de Decisión}: Modelo no lineal capaz de capturar relaciones complejas.
+    \item \textbf{Random Forest}: Ensamble de árboles (Bagging) para reducir varianza y mejorar generalización.
+    \item \textbf{Gradient Boosting}: Ensamble secuencial (Boosting) que optimiza los errores de los árboles previos.
+    \item \textbf{Redes Neuronales (MLP)}: Perceptrón multicapa para capturar relaciones no lineales profundas.
+\end{itemize}
+
+\lstinputlisting[language=Python, caption={ Modelos de regresión con hiperparámetros utilizados.}]{./code/regresionModelHyperparam.py}
+
+\subsection{Resultados iniciales en validación (70/30)}
+Las métricas se calcularon sobre el precio transformado con \texttt{log1p} (Sección\nameref{sec:preprocesamiento}).
+
+\input{./tex/tables/model_results_final.tex}

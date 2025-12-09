@@ -1,0 +1,74 @@
+% ========================================================================
+% PLANTILLA DE PORTADA SEGÚN NORMAS TFDC
+% Universidad ORT Uruguay - Facultad de Ingeniería
+% Documento 302-ET
+% ========================================================================
+
+\newcommand{\createtitlepage}[6]{
+    % Parámetros:
+    % #1: Título del trabajo
+    % #2: Subtítulo (opcional)
+    % #3: Nombre del título que se otorga (ej: Analista Programador)
+    % #4: Autores (formato: Nombre Apellido - Número)
+    % #5: Tutor (Nombre y Apellido)
+    % #6: Año de entrega
+
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{1cm}
+
+            % Universidad
+            {\Huge Universidad ORT Uruguay}
+
+            \vspace{0.5cm}
+
+            % Facultad
+            {\Large Facultad de Ingeniería}
+
+            \vspace{1cm}
+
+            % Título del trabajo
+            {\Large\textbf{#1}}
+
+            % Subtítulo (si existe)
+            \ifx&#2&%
+            % No subtitle
+            \else
+            \vspace{0.5cm}
+            {\LARGE #2}
+            \fi
+
+            \vspace{1cm}
+
+            % Leyenda de requisito
+            {\small Entregado como requisito para la obtención del título de #3}
+
+            \vspace{1cm}
+
+            % Autores
+            {\large #4}
+
+            \vspace{1cm}
+
+            % Logo de la universidad (si existe)
+            \iffile{img/logo-universidad-ort-uruguay.png}{
+                \includegraphics[width=0.7\textwidth]{img/logo-universidad-ort-uruguay.png}
+                \vspace{1cm}
+            }{}
+
+            % Tutor
+            {\small Tutor: #5}
+
+            \vfill
+
+            % Año
+            {\small #6}
+
+        \end{center}
+    \end{titlepage}
+}
+
+% Comando auxiliar para verificar si un archivo existe
+\newcommand{\iffile}[3]{%
+    \IfFileExists{#1}{#2}{#3}%
+}

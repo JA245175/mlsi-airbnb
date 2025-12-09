@@ -1,0 +1,205 @@
+% ========================================================================
+% ESTILOS PRINCIPALES TFDC
+% Archivo de estilos para cumplir con las normas de presentación
+% de trabajos finales de carrera (TFDC) de la Facultad de Ingeniería
+% Universidad ORT Uruguay - Documento 302-ET
+% ========================================================================
+
+% ========================================================================
+% CONFIGURACIÓN BÁSICA DEL DOCUMENTO
+% ========================================================================
+
+% Codificación y idioma
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+% Desactivar atajos activos de babel que interfieren con listings/código
+\shorthandoff{"<>}
+
+% Unicode support for checkmarks and special characters
+\DeclareUnicodeCharacter{2713}{\checkmark}
+\usepackage{amssymb} % For \checkmark
+
+% ========================================================================
+% CONFIGURACIÓN DE PÁGINA Y MÁRGENES
+% Según estilo.txt: mínimo 2.5 cm en cada borde
+% ========================================================================
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    marginparwidth=1.5cm,
+    marginparsep=0.5cm,
+    footskip=1.5cm  % Margen mínimo de 1.5cm para número de página
+}
+
+% ========================================================================
+% CONFIGURACIÓN DE NUMERACIÓN DE PÁGINAS
+% Según estilo.txt: números en ángulo inferior derecho, sin "página" ni otros caracteres
+% ========================================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Limpiar headers y footers
+\fancyfoot[R]{\thepage} % Número de página en esquina inferior derecha
+\renewcommand{\headrulewidth}{0pt} % Sin línea en header
+\renewcommand{\footrulewidth}{0pt} % Sin línea en footer
+
+% ========================================================================
+% CONFIGURACIÓN DE ESPACIADO Y PÁRRAFOS
+% Según estilo.txt: Interlineado sencillo, espaciado anterior 0p y posterior 12p
+% ========================================================================
+\usepackage{setspace}
+\singlespacing % Interlineado sencillo
+\usepackage{indentfirst} % Sangría del primer párrafo de cada sección
+\setlength{\parindent}{2em} % Sangría de párrafos
+\setlength{\parskip}{12pt} % Espaciado posterior 12pt
+
+% ========================================================================
+% CONFIGURACIÓN DE TÍTULOS Y SECCIONES
+% Según estilo.txt: Interlineado sencillo, espaciado anterior 12p y posterior 12p
+% ========================================================================
+\usepackage{titlesec}
+
+% Configurar espaciado de títulos de sección
+\titlespacing*{\section}{0pt}{12pt}{12pt}
+\titlespacing*{\subsection}{0pt}{12pt}{12pt}
+\titlespacing*{\subsubsection}{0pt}{12pt}{12pt}
+
+% ========================================================================
+% PAQUETES PARA CONTENIDO MULTIMEDIA Y GRÁFICOS
+% ========================================================================
+\usepackage{graphicx} % Para incluir imágenes
+\usepackage{svg} % Para incluir gráficos SVG
+\usepackage{pdfpages} % Para incluir PDFs
+\usepackage{float} % Para usar el modificador H en figuras
+\usepackage{tikz} % Para diagramas y gráficos
+\usetikzlibrary{shapes,arrows,positioning} % Librerías adicionales para TikZ
+\usepackage{adjustbox} % Para ajustar tamaños de elementos
+
+% ========================================================================
+% CONFIGURACIÓN DE FIGURAS Y TABLAS
+% Según estilo.txt: numeración correlativa y explicación del contenido
+% ========================================================================
+\usepackage[font=small,justification=centering]{caption}
+\usepackage{array} % Para tablas avanzadas
+
+% ========================================================================
+% PAQUETES MATEMÁTICOS
+% ========================================================================
+\usepackage{amsmath} % Para ecuaciones matemáticas
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+% ========================================================================
+% CONFIGURACIÓN DE BIBLIOGRAFÍA
+% Según estilo.txt: formato IEEE recomendado, orden alfabético
+% ========================================================================
+\usepackage[backend=biber, style=numeric-comp, sorting=nyt]{biblatex}
+\addbibresource{bibliography.bib}
+
+% IEEE-like formatting for bibliography
+\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\DeclareFieldFormat[article]{pages}{pp. #1}
+\DeclareFieldFormat[inproceedings]{pages}{pp. #1}
+
+% Format journal titles in italics
+\DeclareFieldFormat[article]{journaltitle}{\mkbibemph{#1}}
+
+% Format book titles in italics
+\DeclareFieldFormat[book]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[inbook]{title}{\mkbibemph{#1}}
+
+% Definir el encabezado de bibliografía según los requisitos
+\defbibheading{bibliography}[\refname]{
+    \section{Bibliografía}
+}
+
+% ========================================================================
+% CONFIGURACIÓN DE COLORES
+% ========================================================================
+\usepackage{xcolor}
+
+% Definir colores personalizados
+\definecolor{darkblue}{RGB}{0,0,139}
+\definecolor{darkgreen}{RGB}{0,100,0}
+\definecolor{darkred}{RGB}{139,0,0}
+
+% ========================================================================
+% CARGAR ESTILOS DE CÓDIGO DE PROGRAMACIÓN
+% ========================================================================
+\input{.estilos/codigo/code-styles.sty}
+
+% ========================================================================
+% CONFIGURACIÓN DE ENLACES E HIPERVÍNCULOS
+% ========================================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=black,
+    pdfborder={0 0 0},
+    bookmarksopen=true,
+    bookmarksopenlevel=1,
+    hidelinks % Ocultar bordes de los enlaces para una apariencia más limpia
+}
+% Evitar tokens no permitidos en strings PDF (hyperref)
+\pdfstringdefDisableCommands{%
+    \def\texttt#1{#1}%
+    \def\allowbreak{}%
+}
+
+% ========================================================================
+% PAQUETES ADICIONALES PARA FUNCIONALIDAD
+% ========================================================================
+\usepackage{csquotes} % Para citas correctas
+
+% ========================================================================
+% NOMBRES EN ESPAÑOL PARA ELEMENTOS
+% ========================================================================
+\renewcommand{\figurename}{Figura}
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\listfigurename}{Índice de figuras}
+\addto\captionsspanish{%
+    \renewcommand{\tablename}{Tabla}%
+    \renewcommand{\listtablename}{Índice de tablas}%
+}
+
+% ========================================================================
+% CONFIGURACIONES ADICIONALES PARA CUMPLIR CON LOS REQUISITOS
+% ========================================================================
+
+% Comando para iniciar cada capítulo en página nueva
+\newcommand{\newchapter}[1]{
+    \newpage
+    \section{#1}
+}
+
+% Configuración para notas al pie (según requisitos)
+\usepackage[hang,flushmargin]{footmisc}
+
+% Comando para configurar propiedades del PDF (según Anexo 1)
+\newcommand{\setpdfproperties}[4]{
+    \hypersetup{
+        pdftitle={#1},
+        pdfauthor={#2},
+        pdfsubject={#3},
+        pdfkeywords={#4}
+    }
+}
+
+% ========================================================================
+% CONFIGURACIÓN FINAL DEL DOCUMENTO
+% ========================================================================
+
+% Asegurar que los espacios en blanco se manejen correctamente
+\raggedbottom
+
+% Mejorar la justificación del texto
+\usepackage{microtype}
+

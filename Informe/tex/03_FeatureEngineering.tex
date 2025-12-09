@@ -1,0 +1,30 @@
+\newpage
+
+\section{Feature Engineering}
+
+Se desarrollaron procesos de transformación y selección de variables para optimizar el rendimiento de los modelos.
+
+\lstinputlisting[language=Python, caption={Feature engineering: escalamos variables numéricas y codificamos las categóricas.}]{./code/featureEngineering.py}
+
+\subsection{Manejo de variables categóricas}
+
+Las variables categóricas (\texttt{neighbourhood}, \texttt{room\_type}) fueron transformadas utilizando \texttt{OneHotEncoder}. Se configuró para ignorar categorías desconocidas durante la validación/test (\texttt{handle\_unknown='ignore'}), lo cual es crucial para manejar posibles valores nuevos en el conjunto de prueba.
+
+
+\subsection{Escalado de variables numéricas}
+
+Las columnas numéricas se estandarizaron con el escalador estándar (\texttt{Standard\allowbreak Scaler}). Este paso se incluyó dentro de un \texttt{ColumnTransformer} para centrar y escalar cada variable en un solo paso y mantener la coherencia entre entrenamiento, validación y test.
+
+\subsection{Creación de nuevas características}
+
+Se creó la variable \texttt{days\_since\_last\_review} a partir de la columna \texttt{last\_review}. 
+
+Esta nueva característica representa la cantidad de días transcurridos desde la última reseña hasta la fecha actual. Los valores nulos resultantes (para alojamientos sin reseñas) fueron imputados con el valor máximo observado en la columna, asumiendo que la falta de reseñas recientes implica una antigüedad mayor o inactividad.
+
+\subsection{Selección de características}
+
+Se eliminaron las columnas \texttt{id}, \texttt{name}, \texttt{host\_name} y \texttt{host\_id} por considerarse identificadores o texto libre que no aportan valor predictivo directo en este enfoque y podrían introducir ruido o sobreajuste.
+
+\subsection{Gestión de data leakage}
+
+Para evitar la fuga de información (\textit{data leakage}), todas las transformaciones (escalado estándar para numéricas y codificación one-hot para categóricas) se implementaron dentro de \texttt{Pipelines} de scikit-learn. Esto asegura que los parámetros de transformación (como la media y desviación estándar del \texttt{StandardScaler}) se aprendan únicamente del conjunto de entrenamiento y se apliquen consistentemente a los conjuntos de validación y prueba.

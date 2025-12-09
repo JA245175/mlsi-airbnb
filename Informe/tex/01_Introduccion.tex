@@ -1,0 +1,67 @@
+\section{Introduccion}
+
+\subsection{Contexto del problema}
+
+El auge de la música en vivo y los festivales internacionales ha transformado Buenos Aires en un epicentro de conciertos. Ante la llegada masiva de fans de todo el mundo, un grupo de analistas de datos busca construir un modelo predictivo. Para ello, te han encomendado la tarea de desarrollar un modelo de regresión, capaz de predecir el precio de los anuncios basándose en datos clave como la ubicación, el tipo de propiedad, las características del anfitrión, entre otras.
+
+\subsection{Objetivos}
+
+Aplicar modelos de aprendizaje automático para abordar una tarea de regresión:
+
+\begin{itemize}
+    \item Construir un modelo de regresión capaz de predecir el precio (\texttt{price}) de los anuncios de Airbnb en Buenos Aires.
+    \item Minimizar el RMSE (métrica oficial) sobre el conjunto de validación y generar los archivos de envío para la competencia privada de Kaggle.
+    \item Documentar un flujo reproducible que permita auditar el preprocesamiento, el entrenamiento y la generación de predicciones.
+\end{itemize}
+
+\subsection{Datos disponibles}
+
+El conjunto de entrenamiento contiene 16\,013 registros y 15 columnas (7 enteras, 3 numéricas continuas y 5 categóricas). Mientras que el conjunto de prueba tiene 6\,864 registros y las mismas columnas.
+
+El análisis exploratorio del notebook (\texttt{Obligatorio\_\allowbreak ML.ipynb}) reportó los siguientes valores faltantes:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        Columna                      & \texttt{Train} & \texttt{Test} \\
+        \midrule
+        \texttt{name}                & 8              & 2             \\
+        \texttt{host\_name}          & 13             & 10            \\
+        \texttt{reviews\_per\_month} & 4\,550         & 1\,895        \\
+        \texttt{last\_review}        & 4\,550         & 1\,895        \\
+        \bottomrule
+    \end{tabular}
+    \caption{Valores faltantes en los datasets de entrenamiento y prueba.}
+    \label{tab:dataset-missing}
+\end{table}
+
+\subsubsection{Información adicional sobre las variables del dataset}
+
+\begin{itemize}
+    \item \textbf{id} (numérica): identificador único del anuncio.
+    \item \textbf{name} (texto): título del anuncio.
+    \item \textbf{host id} (numérica): identificador único del anfitrión.
+    \item \textbf{host name} (categórica): nombre del anfitrión.
+    \item \textbf{neighbourhood} (categórica): barrio de la ciudad donde se encuentra el alojamiento.
+    \item \textbf{latitude y longitude} (numéricas): coordenadas geográficas del alojamiento.
+    \item \textbf{room type} (categórica): tipo de habitación (ej., ‘Entire home/apt’, ‘Private room’).
+    \item \textbf{price} (numérica): precio por noche del alojamiento (variable a predecir).
+    \item \textbf{minimum nights} (numérica): número mínimo de noches que se pueden reservar.
+    \item \textbf{number of reviews} (numérica): cantidad total de reseñas del alojamiento.
+    \item \textbf{last review} (fecha): fecha de la última reseña.
+    \item \textbf{reviews per month} (numérica): promedio de reseñas por mes.
+    \item \textbf{calculated host listings count} (numérica): cantidad de anuncios del mismo anfitrión.
+    \item \textbf{availability 365} (numérica): cantidad de días que el alojamiento está disponible en el año.
+\end{itemize}
+
+\subsubsection{Competencia Kaggle}
+La entrega requiere participar en la competencia privada de Kaggle con al menos un archivo de envío. La métrica de evaluación es RMSE y el conjunto de test no incluye la variable \texttt{price}, por lo que se generaron predicciones y se guardaron los \textit{csv} correspondientes en la carpeta \texttt{pred/}.
+
+\subsubsection{Uso de Inteligencia Artificial}
+Este trabajo sigue las pautas de uso de Inteligencia Artificial Generativa establecidas por la cátedra:
+\begin{itemize}
+    \item Se citarán las fuentes y usos de IA para la generación de contenido.
+    \item Se verificará la información generada por IA.
+    \item Se asume la responsabilidad por el uso ético de estas herramientas.
+\end{itemize}

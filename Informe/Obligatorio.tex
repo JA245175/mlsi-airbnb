@@ -1,0 +1,67 @@
+% ========================================================================
+% ESTRUCTURA MEJORADA PARA OBLIGATORIO PROGRAMACIÓN DE REDES
+% Universidad ORT Uruguay - Facultad de Ingeniería
+% ========================================================================
+
+\documentclass[12pt]{article}
+
+% Importación de estilos existentes
+\usepackage{.estilos/estilos-tfdc}
+\usepackage{.estilos/portada-tfdc}
+
+% Paquetes adicionales para mejorar documentación técnica
+\usepackage{amsmath}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\begin{document}
+
+% ========================================================================
+% CONFIGURACIÓN PDF Y PORTADA
+% ========================================================================
+\setpdfproperties{Obligatorio - Predicción de Precios de Airbnb en Buenos Aires}{Juan Manuel Appoloni Alvarez; Alfredo Raúl Fernández Roberti}{Machine Learning para Sistemas Inteligentes}{Airbnb, Kaggle, Regresión, Buenos Aires}
+
+\createtitlepage{Obligatorio - Predicción de Precios de Airbnb en Buenos Aires}{Machine Learning para Sistemas Inteligentes}{Ingeniería en Sistemas}{Juan Manuel Appoloni Alvarez - 245175 \\ Alfredo Raúl Fernández Roberti - XXXXX }{Matías Carrasco Piaggio \\ Johny Daniel Kidd Schenck}{2025}
+
+% ========================================================================
+% PÁGINAS PRELIMINARES
+% ========================================================================
+
+\tableofcontents
+
+\clearpage
+% ========================================================================
+% CONTENIDO PRINCIPAL - ESTRUCTURA MEJORADA
+% ========================================================================
+
+
+\input{tex/01_Introduccion.tex}
+
+\input{tex/02_Preprocesamiento.tex}
+
+\input{tex/03_FeatureEngineering.tex}
+
+\input{tex/04_Modelos.tex}
+
+\input{tex/05_Evaluacion.tex}
+
+\input{tex/06_ModeloFinal.tex}
+
+
+% ========================================================================
+% BIBLIOGRAFÍA Y ANEXOS
+% ========================================================================
+
+% \nocite{*}
+% \begingroup
+% \raggedright
+% \sloppy
+% \printbibliography[heading=bibliography]
+% \endgroup
+
+\input{tex/07_Anexo.tex}
+
+\end{document}

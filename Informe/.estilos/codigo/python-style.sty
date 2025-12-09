@@ -1,0 +1,38 @@
+% ========================================================================
+% Estilo Python para listings
+% Basado en el estilo de notebooks (Obligatorio_ML.ipynb)
+% ========================================================================
+
+\lstdefinestyle{python}{
+    inputencoding=utf8,
+    language=Python,
+    basicstyle=\ttfamily\small,                      % Fuente monoespaciada pequeña
+    keywordstyle=\color{blue!80!black}\bfseries,    % Palabras clave en azul oscuro y negrita
+    commentstyle=\color{gray}\itshape,             % Comentarios en gris y cursiva
+    stringstyle=\color{orange!80!black},           % Strings en naranja oscuro
+    identifierstyle=\color{black},                 % Identificadores en negro
+    numbers=left,                                  % Números de línea a la izquierda
+    numberstyle=\tiny\color{gray},                 % Estilo de los números
+    stepnumber=1,
+    frame=single,                                  % Marco alrededor del código
+    backgroundcolor=\color{gray!5},                % Fondo gris muy claro
+    breaklines=true,                               % Saltos de línea automáticos
+    breakatwhitespace=true,
+    showstringspaces=false,                        % No mostrar espacios especiales en strings
+    tabsize=2,
+    columns=flexible,
+    emph={pd,np,plt,sns,os,
+          read_csv,fillna,clip,quantile,drop,log1p,expm1,
+          GridSearchCV,Pipeline,ColumnTransformer,OneHotEncoder,StandardScaler,
+          train_test_split,cross_val_score,KFold,
+          LinearRegression,DecisionTreeRegressor,
+          RandomForestRegressor,GradientBoostingRegressor,MLPRegressor,
+          DummyRegressor,
+          mean_squared_error,mean_absolute_error,r2_score},
+    emphstyle=\color{teal}\bfseries,              % Librerías y funciones comunes en teal
+    morekeywords={DataFrame,Series,fit,predict,transform,fit_transform,display,
+                  read_csv,read_excel,plot,show}
+}
+
+% Aplicar automáticamente el estilo
+\lstset{language=Python,style=python}

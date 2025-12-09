@@ -1,0 +1,95 @@
+\newpage
+
+\section{Preprocesamiento}
+\label{sec:preprocesamiento}
+
+En esta sección se detalla el tratamiento inicial realizado a los datos para prepararlos para el modelado, replicando el flujo implementado en el notebook \texttt{Obligatorio\_ML.ipynb}.
+
+\subsection{Gestión de valores faltantes}
+
+A partir del análisis de los datos (ver Tabla \ref{tab:dataset-missing}), se aplicaron las siguientes estrategias para manejar los valores nulos:
+
+\begin{itemize}
+    \item \textbf{reviews\_per\_month}: Se imputaron los valores nulos con 0, asumiendo que la ausencia de reseñas indica que no hubo actividad en ese aspecto.
+    \item \textbf{last\_review}: Se convirtió a formato fecha y se utilizó para crear una nueva característica temporal (\texttt{days\_since\_last\_review}). Los valores nulos en esta nueva característica fueron imputados con el valor máximo observado, interpretando que la falta de reseñas recientes sugiere inactividad o antigüedad mayor al máximo registrado.
+    \item \textbf{name} Esta Columna fue eliminada del dataset debido a que contiene texto libre que no aporta valor predictivo directo en este enfoque y podría introducir ruido o sobreajuste.
+    \item \textbf{host\_id} Análogo a name.
+    \item \textbf{host\_name} Análogo a name.
+    \item \textbf{id} Análogo a name. 
+\end{itemize}
+
+En resumen se realizaron las siguientes acciones:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        Columna                      & Acción aplicada                     \\
+        \midrule
+        \texttt{reviews\_per\_month} & Replazar \text{NaN} por 0                    \\
+        \texttt{last\_review}        & Se remplaza por la creación de \texttt{days\_since\_last\_review} \\
+        \texttt{name}                & Eliminación                        \\
+        \texttt{host\_id}            & Eliminación                        \\
+        \texttt{host\_name}          & Eliminación                        \\
+        \texttt{id}                  & Eliminación                        \\
+        \bottomrule
+    \end{tabular}
+    \caption{Resumen de acciones aplicadas para gestionar valores faltantes y columnas irrelevantes.}
+\end{table}
+
+
+\subsection{Gestión de outliers}
+
+\input{./tex/tables/df_no_outliers_desc.tex}
+
+La Tabla \ref{tab:df-no-outliers-desc} resume los estadísticos descriptivos antes de aplicar el recorte con IQR.
+
+En base al análisis exploratorio, se identificaron varios outliers en columnas numéricas clave que podrían afectar negativamente el rendimiento de los modelos. Estos son:
+
+\begin{itemize}
+    \item \textbf{Precios y estadías muy largas} (\texttt{price}, \texttt{minimum\_nights}) que distorsionan la media y la varianza.
+    \item \textbf{Actividad de reseñas atípica} (\texttt{number\_of\_reviews}, \texttt{reviews\_per\_month}) con colas largas.
+    \item \textbf{Disponibilidad y múltiples listings} (\texttt{availability\_\allowbreak365}, \texttt{calculated\_\allowbreak host\_\allowbreak listings\_\allowbreak count}) con valores extremos.
+    \item \textbf{Antigüedad de reseñas} (\texttt{days\_\allowbreak since\_\allowbreak last\_\allowbreak review}) con grandes diferencias entre anuncios activos e inactivos.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{p{2.5cm} p{3.4cm} p{3.3cm} p{4cm}}
+        \toprule
+        Concepto & Qué hace & Detecta/Modifica & Ventaja \\
+        \midrule
+        Winsorize & Reemplaza extremos por percentiles & Modifica outliers & Reduce impacto sin eliminar datos \\
+        IQR & $Q3 - Q1$ & Base para detectar outliers & Medida robusta de dispersión \\
+        \bottomrule
+    \end{tabular}
+    \caption{Comparativa de enfoques para detectar/tratar outliers. Se eligió IQR con \texttt{clip} por robustez y simplicidad.}
+    \label{tab:outliers-metodos}
+\end{table}
+
+
+Se opto por aplicar el método basado en el rango intercuartílico (IQR) combinado con la función \texttt{clip} para limitar los valores fuera de los límites definidos por $Q1 - 1.5 \times IQR$ y $Q3 + 1.5 \times IQR$. Esto se debe a varias razones:
+
+\begin{itemize}
+    \item El IQR es robusto en distribuciones sesgadas y no asume normalidad.
+    \item \texttt{clip} evita eliminar filas: se preserva el tamaño muestral para Cross-Validation.
+    \item Se integra de forma simple y reproducible en el pipeline de \texttt{scikit-learn} del notebook \texttt{Obligatorio\_ML.ipynb}.
+\end{itemize}
+
+
+Para ver otras gráficas utilizadas para el análisis de outliers, dirigirse a la sección del apéndice \ref{appendix:outliers}.
+
+\subsection{Transformación de variables}
+
+Por otro lado, se aplicó una  transformación logarítmica (\lstinline[style=python]{np.log1p}) a la variable objetivo \texttt{price}. Esto se realizó para estabilizar la varianza y acercar la distribución de la variable a una normal, lo cual beneficia el rendimiento de los modelos de regresión lineal y otros algoritmos sensibles a la escala y distribución de la variable objetivo.
+
+Las métricas reportadas en las secciones siguientes corresponden a la escala logarítmica; al generar predicciones finales se revirtió la transformación con \lstinline[style=python]{np.expm1}.
+
+\subsection{Resultado Final}
+
+En la siguiente tabla (Tabla \ref{tab:df-iqr-desc-log}) se presentan los estadísticos descriptivos de las variables numéricas tras aplicar el preprocesamiento descrito, incluyendo la gestión de valores faltantes y el tratamiento de outliers. Se observa una reducción significativa en la varianza y los valores máximos, indicando que el preprocesamiento ha mitigado el impacto de los outliers en el conjunto de datos.
+
+\input{./tex/tables/df_iqr_desc.tex}
+
+Una versión sin la transformación logarítmica se incluye en el apéndice (Tabla \ref{tab:df-iqr-desc-no-log}).

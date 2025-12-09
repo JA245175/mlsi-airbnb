@@ -1,0 +1,26 @@
+
+\begin{table}[H]
+    \centering
+    \setlength{\tabcolsep}{4pt}
+        \begin{scriptsize}
+\begin{adjustbox}{width=\textwidth}
+    \begin{tabular}{lrrrrr}
+\toprule
+Modelo & rmse\_mean & rmse\_std & MSE\_mean & MAE\_mean & R2\_mean \\
+\midrule
+GradientBoosting & 0.5167 & 0.0063 & 0.2670 & 0.4026 & 0.4274 \\
+RandomForest & 0.5171 & 0.0075 & 0.2675 & 0.4014 & 0.4264 \\
+NeuralNetwork & 0.5342 & 0.0059 & 0.2854 & 0.4168 & 0.3879 \\
+LinearRegression\_Ridge & 0.5416 & 0.0058 & 0.2933 & 0.4218 & 0.3709 \\
+LinearRegression & 0.5416 & 0.0058 & 0.2934 & 0.4218 & 0.3708 \\
+LinearRegression\_Lasso & 0.5425 & 0.0057 & 0.2943 & 0.4234 & 0.3688 \\
+DecisionTree & 0.5482 & 0.0070 & 0.3006 & 0.4280 & 0.3554 \\
+Dummy & 0.6831 & 0.0073 & 0.4667 & 0.5468 & -0.0008 \\
+\bottomrule
+\end{tabular}
+
+    \end{adjustbox}
+    \end{scriptsize}
+    \caption{Resultados de validación cruzada (5-fold) para todos los modelos.}
+    \label{tab:cv-all-models}
+\end{table}
