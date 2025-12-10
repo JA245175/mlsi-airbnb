@@ -1,0 +1,30 @@
+
+\begin{table}[H]
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{scriptsize}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lrrrrr}
+\toprule
+Modelo & rmse\_mean & rmse\_std & MSE\_mean & MAE\_mean & R2\_mean \\
+\midrule
+GradientBoosting Optimizado & 0.5590 & 0.0086 & 0.3126 & 0.4229 & 0.4194 \\
+RandomForest Optimizado & 0.5604 & 0.0098 & 0.3142 & 0.4232 & 0.4165 \\
+RandomForest & 0.5624 & 0.0095 & 0.3164 & 0.4249 & 0.4124 \\
+GradientBoosting & 0.5719 & 0.0079 & 0.3271 & 0.4366 & 0.3924 \\
+NeuralNetwork Optimizado & 0.5849 & 0.0079 & 0.3421 & 0.4465 & 0.3645 \\
+Ridge Optimizado & 0.5875 & 0.0067 & 0.3452 & 0.4479 & 0.3587 \\
+LinearRegression & 0.5875 & 0.0067 & 0.3452 & 0.4479 & 0.3587 \\
+Lasso Optimizado & 0.5884 & 0.0066 & 0.3462 & 0.4494 & 0.3569 \\
+DecisionTreeRegressor Optimizado & 0.6025 & 0.0058 & 0.3631 & 0.4593 & 0.3255 \\
+NeuralNetwork & 0.6178 & 0.0099 & 0.3818 & 0.4721 & 0.2903 \\
+Dummy & 0.7340 & 0.0095 & 0.5388 & 0.5747 & -0.0007 \\
+DecisionTree & 0.7955 & 0.0115 & 0.6329 & 0.5993 & -0.1755 \\
+\bottomrule
+\end{tabular}
+
+\end{adjustbox}
+\end{scriptsize}
+\caption{Validación cruzada (5-Fold) para todos los modelos optimizados.}
+\label{tab:cv-all-models}
+\end{table}

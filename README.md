@@ -1,76 +1,53 @@
-# Instalacion
+# Obligatorio de Machine Learning - Predicción de Precios de Airbnb
 
-instalar ambiente py con setup_xxx
-Consigna.pdf
+Este repositorio contiene el desarrollo del trabajo obligatorio para el curso de Machine Learning. El objetivo del proyecto es construir un modelo predictivo para estimar el precio de alojamientos de Airbnb utilizando técnicas de aprendizaje automático.
 
-Informe en Informe folder
+## Estructura del Repositorio
 
-explicar gitignore.
+El proyecto está organizado de la siguiente manera:
 
+*   **`Obligatorio_ML.ipynb`**: Jupyter Notebook principal. Contiene todo el flujo de trabajo:
+    *   Análisis Exploratorio de Datos (EDA).
+    *   Limpieza y Preprocesamiento.
+    *   Ingeniería de Características (Feature Engineering).
+    *   Entrenamiento y optimización de modelos (GridSearch).
+    *   Evaluación y generación de predicciones.
+*   **`Informe/`**: Código fuente del informe técnico en LaTeX.
+    *   El archivo principal es `Obligatorio.tex`.
+    *   Contiene subcarpetas para imágenes (`img/`), tablas (`tables/`) y secciones (`tex/`).
+*   **`pred/`**: Directorio de salida para los archivos CSV con las predicciones generadas por los diferentes modelos.
+*   **`img/`**: Gráficos generados por el notebook (histogramas, análisis de percentiles, etc.).
+*   **`train.csv` / `test.csv`**: Conjuntos de datos de entrenamiento y prueba.
+*   **`setup_python_env.sh`**: Script de Bash para automatizar la creación del entorno virtual y la instalación de dependencias.
 
-metodos aplicado en Obligatorio_ML. explicar otras coasas
+## Instalación y Configuración
 
+Para asegurar la reproducibilidad del entorno, sigue estos pasos:
 
-ver cofig + py interpreter con 
+1.  **Ejecutar el script de configuración**:
+    Este script buscará una instalación de Python adecuada, creará un entorno virtual (por defecto en `.venv`) e instalará las librerías necesarias.
+    ```bash
+    chmod +x setup_python_env.sh
+    ./setup_python_env.sh
+    ```
 
+2.  **Activar el entorno virtual**:
+    ```bash
+    source .venv/bin/activate
+    ```
 
-```python
-import platform
-import os
-import sys
-import json
+## Uso
 
-try:
-    import psutil
-except ImportError:
-    psutil = None
+1.  Abre el archivo `Obligatorio_ML.ipynb` en VS Code o Jupyter Lab.
+2.  Selecciona el kernel correspondiente al entorno virtual creado (`.venv`).
+3.  Ejecuta las celdas en orden secuencial.
 
+> **Nota**: El notebook está configurado para exportar automáticamente tablas y gráficos a las carpetas del informe (`Informe/tex/tables` e `Informe/img`).
 
-def get_system_info():
-    info = {
-        "os": {
-            "system": platform.system(),
-            "node": platform.node(),
-            "release": platform.release(),
-            "version": platform.version(),
-            "machine": platform.machine(),
-            "processor": platform.processor(),
-            "platform": platform.platform(),
-        },
-        "python": {
-            "version": sys.version,
-            "executable": sys.executable,
-        },
-        "environment_variables": dict(os.environ),
-    }
+## Informe
 
-    if psutil:
-        info["hardware"] = {
-            "cpu_count": psutil.cpu_count(logical=False),
-            "cpu_count_logical": psutil.cpu_count(logical=True),
-            "total_ram_bytes": psutil.virtual_memory().total,
-            "disk_usage_root": {
-                "total": psutil.disk_usage("/").total,
-                "used": psutil.disk_usage("/").used,
-                "free": psutil.disk_usage("/").free,
-            },
-        }
-    else:
-        info["hardware"] = "psutil no instalado"
+El informe final se encuentra en la carpeta `Informe`. Para compilarlo, asegúrate de tener una distribución de LaTeX instalada (como TeX Live) y compila el archivo `Obligatorio.tex`.
 
-    return info
+## Información del Sistema
 
-if __name__ == "__main__":
-    system_info = get_system_info()
-
-    # Convertir a JSON (con pretty-print)
-    json_output = json.dumps(system_info, indent=4, ensure_ascii=False)
-
-    # Guardar en archivo
-    with open("system_info.json", "w", encoding="utf-8") as f:
-        f.write(json_output)
-
-    print("Información del sistema guardada en system_info.json")
-    print("\nVista previa:")
-    print(json_output)
-```
+El script `env.py` (si se utiliza) o las celdas correspondientes en el notebook pueden generar un archivo `system_info.json` con detalles sobre el hardware y software utilizado para el entrenamiento, facilitando la comparación de tiempos de ejecución.

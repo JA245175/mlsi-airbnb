@@ -17,38 +17,34 @@ Las columnas numéricas se estandarizaron con el escalador estándar (\texttt{St
 
 \subsection{Creación de nuevas características}
 
-Se generaron múltiples variables nuevas para capturar información semántica, geográfica y temporal:
-
-\subsubsection{Variables Temporales}
-Se creó la variable \texttt{days\_since\_last\_review} a partir de la columna \texttt{last\_review}. Esta característica representa la cantidad de días transcurridos desde la última reseña hasta la fecha actual. Los valores nulos resultantes fueron imputados con el valor máximo observado.
-
-Además, se calculó \texttt{reviews\_per\_year\_calc} como una tasa de reseñas ajustada por la antigüedad de la última reseña.
+Con la intención de enriquecer el conjunto de datos y capturar patrones relevantes, se implementaron las siguientes transformaciones:
 
 \subsubsection{Procesamiento de Lenguaje Natural (NLP)}
 La columna \texttt{name} fue procesada para extraer información semántica valiosa:
 \begin{itemize}
     \item \textbf{Limpieza}: Se normalizó el texto a minúsculas y se eliminaron acentos y caracteres especiales utilizando la librería \texttt{unidecode}.
     \item \textbf{Palabras Clave}: Se crearon variables binarias (\texttt{has\_luxury\_keywords}, \texttt{is\_studio}, \texttt{is\_room}) detectando la presencia de términos específicos (e.g., "luxury", "premium", "studio", "loft") en el nombre del anuncio.
-    \item \textbf{Similitud Semántica}: Se utilizaron \textit{embeddings} generados por el modelo \texttt{all-MiniLM-L6-v2} de \texttt{SentenceTransformer}. Se calcularon las similitudes coseno entre el embedding del nombre de cada anuncio y los embeddings de tres conceptos objetivo: "Luxury/Premium", "Studio/Small" y "Room/Shared". Esto generó tres nuevas variables continuas: \texttt{sim\_luxury}, \texttt{sim\_studio} y \texttt{sim\_room}.
+    \item \textbf{Similitud Semántica}: Se utilizaron \textit{embeddings} del modelo \texttt{all-MiniLM-\allowbreak L6-v2} de \texttt{Sentence\allowbreak Transformer}. Se calcularon las similitudes coseno entre el embedding del nombre de cada anuncio y los embeddings de tres conceptos objetivo: "Luxury/\allowbreak Premium", "Studio/\allowbreak Small" y "Room/\allowbreak Shared". Esto generó tres nuevas variables continuas: \texttt{sim\_luxury}, \texttt{sim\_studio} y \texttt{sim\_room}.
 \end{itemize}
 
 \subsubsection{Variables Geoespaciales}
-Se calculó la distancia al centro de la ciudad (Obelisco) utilizando la fórmula de Haversine a partir de las coordenadas de latitud y longitud, generando la variable \texttt{dist\_to\_center}.
+Se calculó la distancia al centro de la ciudad (Obelisco) utilizando la fórmula de Haversine a partir de las coordenadas de latitud y longitud, generando la variable \texttt{distance\_to\_obelisco}.
 
-\subsubsection{Target Encoding}
-Se aplicó \textit{Target Encoding} con validación cruzada (K-Fold, $k=5$) para capturar información del precio medio en variables categóricas, evitando el \textit{data leakage} al computar las medias fuera del fold de validación. Se generaron dos variables:
+\subsubsection{Nueva variable calculada}
 
-\begin{itemize}
-    \item \textbf{Neighbourhood Target Encoding}: Se calculó el promedio del logaritmo del precio para cada barrio (\texttt{neighbourhood}), generando la variable \texttt{neighbourhood\_mean\_price\_log}.
-    \item \textbf{Interaction Target Encoding}: Se creó una variable de interacción combinando el barrio y el tipo de habitación (\texttt{neigh\_room} = \texttt{neighbourhood} + \texttt{\_} + \texttt{room\_type}). Sobre esta nueva variable compuesta se aplicó el mismo proceso de Target Encoding, generando \texttt{neigh\_room\_mean\_price\_log}. Esto permite capturar el precio base específico para cada tipo de alojamiento dentro de cada barrio (e.g., distinguir el precio base de una habitación privada en Palermo frente a un apartamento entero en el mismo barrio), refinando significativamente la capacidad predictiva del modelo.
-\end{itemize}
+Se creó la variable \texttt{precio\_medio\_barrio} que representa el precio promedio por barrio (\texttt{neighbourhood}) en el conjunto de entrenamiento. Esta variable captura tendencias locales de precios y se incorporó como una característica adicional en el modelo.
 
 \subsubsection{Transformaciones Logarítmicas}
-Se aplicó la transformación $\log(1+x)$ a variables con distribuciones muy sesgadas para reducir el impacto de valores extremos: \texttt{minimum\_nights}, \texttt{number\_of\_reviews}, \texttt{availability\_365} y \texttt{calculated\_host\_listings\_count}.
+Se aplicó la transformación $\log(1+x)$ a nuevas variables con distribuciones muy sesgadas para reducir el impacto de valores extremos de :
 
-\subsection{Selección de características}
-
-Finalmente, se eliminaron las columnas originales \texttt{name} (tras extraer sus features), \texttt{id}, \texttt{host\_name} y \texttt{host\_id} por no aportar valor predictivo directo adicional.
+\begin{itemize}
+    \item \texttt{minimum\_nights}
+    \item \texttt{number\_of\_reviews}
+    \item \texttt{reviews\_per\_month}
+    \item \texttt{availability\_365}
+    \item \texttt{calculated\_host\_listings\_count}
+    \item \texttt{days\_since\_last\_review}
+\end{itemize}
 
 \subsection{Gestión de data leakage}
 

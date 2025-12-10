@@ -31,28 +31,29 @@ Se utilizó \texttt{train\_test\_split} con \texttt{random\_state=42} y, para la
 
 \subsubsection{Random Forest}
 
-\input{./tex/tables/RandomForestRegressor_gridsearch_results.tex}
+\input{./tex/tables/RandomForest_gridsearch_results.tex}
+
 
 \subsubsection{Gradient Boosting}
 
-\input{./tex/tables/GradientBoostingRegressor_gridsearch_results.tex}
-
+\input{./tex/tables/GradientBoosting_gridsearch_results.tex}
 
 \subsubsection{Red Neuronal (MLP)}
 
-\input{./tex/tables/NeuralNetwork_gridsearch_results.tex}
+\input{./tex/tables/MLP_gridsearch_results.tex}
 
 
 \subsection{Resultados Finales}
 
 A continuación se presentan los mejores hiperparámetros encontrados para cada modelo junto con sus métricas en la partición de validación 70/30:
 
-\input{./tex/tables/cv_all_models_results.tex}
+\input{./tex/tables/cv_results_all_models.tex}
 
 \subsubsection{Síntesis de resultados}
 \begin{itemize}
-    \item \textbf{Hold-out 70/30} (Tabla \ref{tab:model-results-first-barrido}): Random Forest (RMSE 0.5175, MAE 0.3974, R\textsuperscript{2} 0.4265) y Gradient Boosting (0.5210, 0.4070, 0.4186) lideran; la red neuronal queda cerca (RMSE 0.5390). Lasso y Ridge rondan RMSE 0.54 con R\textsuperscript{2} $\approx$ 0.37; el árbol simple se degrada (RMSE 0.73, R\textsuperscript{2} negativo).
-    \item \textbf{Validación cruzada (5 pliegues)} (Tabla \ref{tab:cv-all-models}): el ranking se mantiene con baja varianza; Gradient Boosting logra RMSE \(0.5167 \pm 0.0063\), Random Forest \(0.5171 \pm 0.0075\); el MLP queda en $\sim$0.534 y Lasso/Ridge en $\sim$0.542; el Dummy queda muy atrás.
-    \item \textbf{Benchmark de hiperparámetros}: Lasso y Ridge prefieren \texttt{alpha=0.001} (Tablas \ref{tab:lasso-gridsearch} y \ref{tab:ridge-gridsearch}); el Árbol de Decisión rinde mejor con \texttt{max\_depth=5} y \texttt{min\_samples\_leaf=4} (Tabla \ref{tab:decisiontreeregressor-gridsearch}); Random Forest mejora con \texttt{n\_estimators=200}, \texttt{max\_depth=10} y hojas pequeñas (Tabla \ref{tab:randomforestregressor-gridsearch}). Las ganancias entre configuraciones fuertes y débiles son moderadas (~0.02--0.03 RMSE) pero consistentes.
-    \item \textbf{Conclusión práctica}: Random Forest y Gradient Boosting son los candidatos finales; los lineales quedan como baselines fuertes y el MLP es competitivo pero ligeramente detrás. Las predicciones finales se revirtieron con \texttt{np.expm1} antes de generar los archivos de envío en \texttt{pred/}.
+    \item \textbf{Hold-out 70/30} (Tabla \ref{tab:model-results-first-barrido}): Random Forest (RMSE 0.5533, MAE 0.4199, R\textsuperscript{2} 0.4281) lidera el desempeño, seguido por Gradient Boosting (RMSE 0.5649, MAE 0.4313, R\textsuperscript{2} 0.4040). Los modelos lineales (Linear Regression, Ridge, Lasso) muestran un rendimiento consistente con un RMSE cercano a 0.586. La Red Neuronal base comienza con un RMSE de 0.6006, mientras que el Árbol de Decisión sin optimizar presenta un sobreajuste severo o mal desempeño (RMSE 0.8009).
+    \item \textbf{Validación cruzada (5 pliegues)} (Tabla \ref{tab:cv-all-models}): Se confirma la superioridad de Random Forest Optimizado, logrando el mejor RMSE promedio de 0.5604 ($\pm$ 0.0098) y un R\textsuperscript{2} de 0.4165. Gradient Boosting se mantiene competitivo (RMSE 0.5719), pero por debajo de Random Forest.
+    \item \textbf{Mejoras por optimización}: La optimización de hiperparámetros fue crucial para el Árbol de Decisión, reduciendo su RMSE de 0.7955 a 0.6025. La Red Neuronal también mejoró significativamente (de 0.6178 a 0.5849), superando ligeramente a los modelos lineales. Random Forest mostró una mejora marginal con la optimización (0.5624 a 0.5604), lo que indica que su configuración base ya era bastante robusta.
+    \item \textbf{Conclusión práctica}: Random Forest Optimizado es el candidato final seleccionado por su consistencia y menor error tanto en validación simple como cruzada. Los modelos lineales sirven como una base sólida y rápida, mientras que las redes neuronales requieren más ajuste para superar a los métodos de ensamble en este dataset tabular.
+    \item El valor de \textbf{MSE} obtenido por los modelos en  \textit{Kaggle} fue de  11000.
 \end{itemize}

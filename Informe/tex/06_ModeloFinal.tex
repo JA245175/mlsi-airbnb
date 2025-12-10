@@ -1,11 +1,11 @@
 \newpage
 
 \section{Modelo final}
-El modelo seleccionado es \textbf{Gradient Boosting Regressor}, que obtuvo el menor RMSE promedio en la validación cruzada (0.5167) y demostró ser robusto con una baja desviación estándar. Aunque Random Forest obtuvo un desempeño muy cercano, Gradient Boosting fue elegido por su capacidad de optimización secuencial y ligera ventaja en la métrica principal.
+El modelo seleccionado es \textbf{Random Forest Regressor (Optimizado)}, que obtuvo el menor RMSE promedio en la validación cruzada (0.5604) y el mayor coeficiente de determinación (R\textsuperscript{2} 0.4165). Este modelo demostró ser el más robusto frente a la variabilidad de los datos, superando tanto a Gradient Boosting como a los modelos lineales y redes neuronales.
 
 \subsection{Hiperparámetros y métricas}
 \begin{itemize}
-    \item \textbf{Hiperparámetros óptimos}: \texttt{n\_estimators=200}, \texttt{learning\_rate=0.05}, \\ \texttt{max\_depth=5}, \texttt{min\_samples\_split=5}. Estos valores permitieron un equilibrio adecuado entre sesgo y varianza, controlando la complejidad del modelo.
-    \item \textbf{Validación hold-out (30\%)}: RMSE 0.5210, MAE 0.4070, R\textsuperscript{2} 0.4186.
-    \item \textbf{Validación cruzada (5 pliegues)}: RMSE medio 0.5167 con desviación estándar 0.0063, MAE medio 0.4026, R\textsuperscript{2} medio 0.4274.
+    \item \textbf{Hiperparámetros óptimos}: Se seleccionaron mediante GridSearch (ver Tabla \ref{tab:random-forest}). La configuración ganadora incluye un mayor número de estimadores y control de profundidad para evitar sobreajuste.
+    \item \textbf{Validación hold-out (30\%)}: RMSE 0.5533, MAE 0.4199, R\textsuperscript{2} 0.4281.
+    \item \textbf{Validación cruzada (5 pliegues)}: RMSE medio 0.5604 con desviación estándar 0.0098, MAE medio 0.4232, R\textsuperscript{2} medio 0.4165.
 \end{itemize}

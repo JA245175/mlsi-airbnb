@@ -13,8 +13,8 @@ A partir del análisis de los datos (ver Tabla \ref{tab:dataset-missing}), se ap
     \item \textbf{reviews\_per\_month}: Se imputaron los valores nulos con 0, asumiendo que la ausencia de reseñas indica que no hubo actividad en ese aspecto.
     \item \textbf{last\_review}: Se convirtió a formato fecha y se utilizó para crear una nueva característica temporal (\texttt{days\_since\_last\_review}). Los valores nulos en esta nueva característica fueron imputados con el valor máximo observado, interpretando que la falta de reseñas recientes sugiere inactividad o antigüedad mayor al máximo registrado.
     \item \textbf{never\_reviewed}: Se creó una variable binaria para indicar explícitamente si un alojamiento nunca ha tenido reseñas (derivado de los nulos en \texttt{last\_review}).
-    \item \textbf{name}: Se imputaron los valores nulos con cadena vacía para permitir el procesamiento de texto posterior.
-    \item \textbf{host\_id}: Esta columna fue eliminada por ser un identificador sin valor predictivo directo.
+    \item \textbf{name}: Esta columna fue eliminada por ser un identificador sin valor predictivo directo.
+    \item \textbf{host\_id}: Análogo a \texttt{name}. 
     \item \textbf{host\_name}: Análogo a \texttt{host\_id}.
     \item \textbf{id}: Análogo a \texttt{host\_id}. 
 \end{itemize}
@@ -28,8 +28,8 @@ En resumen se realizaron las siguientes acciones:
         Columna                      & Acción aplicada                     \\
         \midrule
         \texttt{reviews\_per\_month} & Reemplazar \text{NaN} por 0                    \\
-        \texttt{last\_review}        & Se reemplaza por \texttt{days\_since\_last\_review} y \texttt{never\_reviewed} \\
-        \texttt{name}                & Imputación de nulos (luego procesado en Feature Eng.) \\
+        \texttt{last\_review}        & Genera \texttt{days\_since\_last\_review} y \texttt{never\_reviewed} \\
+        \texttt{name}                & Eliminación \\
         \texttt{host\_id}            & Eliminación                        \\
         \texttt{host\_name}          & Eliminación                        \\
         \texttt{id}                  & Eliminación                        \\
@@ -41,9 +41,9 @@ En resumen se realizaron las siguientes acciones:
 
 \subsection{Gestión de outliers}
 
-\input{./tex/tables/df_no_outliers_desc.tex}
+\input{./tex/tables/df_raw_train_desc.tex}
 
-La Tabla \ref{tab:df-no-outliers-desc} resume los estadísticos descriptivos antes de aplicar el recorte con IQR.
+La Tabla \ref{tab:df-raw-train-desc} resume los estadísticos descriptivos antes de aplicar el recorte con IQR.
 
 En base al análisis exploratorio, se identificaron varios outliers en columnas numéricas clave que podrían afectar negativamente el rendimiento de los modelos. Estos son:
 
@@ -93,4 +93,4 @@ En la siguiente tabla (Tabla \ref{tab:df-iqr-desc-log}) se presentan los estadí
 
 \input{./tex/tables/df_iqr_desc.tex}
 
-Una versión sin la transformación logarítmica se incluye en el apéndice (Tabla \ref{tab:df-iqr-desc-no-log}).
+Una versión sin aplicar IQR se incluye en el apéndice (Tabla \ref{tab:df-preprocessed-train-desc}).
