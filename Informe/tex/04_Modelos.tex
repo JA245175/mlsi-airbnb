@@ -21,9 +21,10 @@ Se implementaron y evaluaron los siguientes modelos de regresión:
     \item \textbf{Redes Neuronales (MLP)}: Perceptrón multicapa para capturar relaciones no lineales profundas.
 \end{itemize}
 
-\lstinputlisting[language=Python, caption={ Modelos de regresión con hiperparámetros utilizados.}]{./code/regresionModelHyperparam.py}
+\lstinputlisting[language=Python, breaklines=true, caption={ Modelos de regresión con hiperparámetros utilizados.}]{./code/regresionModelHyperparam.py}
 
 \subsection{Resultados iniciales en validación (70/30)}
-Las métricas se calcularon sobre el precio transformado con \texttt{log1p} (Sección\nameref{sec:preprocesamiento}).
+
+Las métricas se calcularon sobre el precio transformado con \texttt{log1p} (ver Sección~\ref{sec:preprocesamiento}).
 
 \input{./tex/tables/model_results_final.tex}

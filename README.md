@@ -1,3 +1,20 @@
+# Instalacion
+
+instalar ambiente py con setup_xxx
+Consigna.pdf
+
+Informe en Informe folder
+
+explicar gitignore.
+
+
+metodos aplicado en Obligatorio_ML. explicar otras coasas
+
+
+ver cofig + py interpreter con 
+
+
+```python
 import platform
 import os
 import sys
@@ -43,7 +60,6 @@ def get_system_info():
 
     return info
 
-
 if __name__ == "__main__":
     system_info = get_system_info()
 
@@ -57,3 +73,4 @@ if __name__ == "__main__":
     print("Información del sistema guardada en system_info.json")
     print("\nVista previa:")
     print(json_output)
+```

@@ -55,6 +55,9 @@ install_deps() {
         scikit-learn \
         ipykernel \
         Jinja2 \
+        sentence-transformers \
+        ipywidgets \
+        unidecode
 }
 
 main() {

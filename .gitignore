@@ -19,3 +19,6 @@ Informe/*.toc
 Informe/*.fls
 Informe/*.fdb_latexmk
 Informe/*.synctex.gz
+
+# Predicciones 
+pred/**
